@@ -1,9 +1,8 @@
 package com.vinhnguyen.netChargeNZ.filter;
 
 import com.vinhnguyen.netChargeNZ.constants.SecurityConstants;
+import com.vinhnguyen.netChargeNZ.util.JWTTokenUtil;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,11 +14,15 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.crypto.SecretKey;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 public class JWTTokenValidatorFilter extends OncePerRequestFilter {
+    private final JWTTokenUtil jwtTokenUtil;
+
+    public JWTTokenValidatorFilter(JWTTokenUtil jwtTokenUtil) {
+        this.jwtTokenUtil = jwtTokenUtil;
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
@@ -27,12 +30,7 @@ public class JWTTokenValidatorFilter extends OncePerRequestFilter {
         if (jwtHeader != null && jwtHeader.startsWith("Bearer ")) {
             String jwt = jwtHeader.replace("Bearer ", "").trim();
             try {
-                SecretKey key = Keys.hmacShaKeyFor(SecurityConstants.JWT_KEY.getBytes(StandardCharsets.UTF_8));
-                Claims claims = Jwts.parserBuilder()
-                        .setSigningKey(key)
-                        .build()
-                        .parseClaimsJws(jwt)
-                        .getBody();
+                Claims claims = jwtTokenUtil.getPayload(jwt);
 
                 String username = String.valueOf(claims.get("username"));
                 String authorities = (String) claims.get("authorities");

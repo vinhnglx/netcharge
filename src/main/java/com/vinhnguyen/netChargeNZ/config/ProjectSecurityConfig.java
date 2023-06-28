@@ -1,6 +1,7 @@
 package com.vinhnguyen.netChargeNZ.config;
 
 import com.vinhnguyen.netChargeNZ.filter.JWTTokenValidatorFilter;
+import com.vinhnguyen.netChargeNZ.util.JWTTokenUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,13 +16,20 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 
 @Configuration
 public class ProjectSecurityConfig {
+    private final JWTTokenUtil jwtTokenUtil;
+
+    public ProjectSecurityConfig(JWTTokenUtil jwtTokenUtil) {
+        this.jwtTokenUtil = jwtTokenUtil;
+    }
+
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-            .addFilterBefore(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class)
+            .addFilterBefore(new JWTTokenValidatorFilter(jwtTokenUtil), BasicAuthenticationFilter.class)
             .authorizeHttpRequests()
             .requestMatchers(HttpMethod.POST, "/api/connectors").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.GET, "/api/chargePoints").hasRole("CUSTOMER")
             .requestMatchers("/version", "/api/register", "/api/signIn").permitAll()
             .requestMatchers(toH2Console()).permitAll()
             .and().csrf().ignoringRequestMatchers(toH2Console())

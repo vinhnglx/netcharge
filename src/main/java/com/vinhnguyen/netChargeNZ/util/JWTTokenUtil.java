@@ -19,7 +19,6 @@ import java.util.*;
 @Component
 public class JWTTokenUtil {
 
-    private final UserRepository userRepository;
     private static SecretKey secretKey = Keys.hmacShaKeyFor(SecurityConstants.JWT_KEY.getBytes(StandardCharsets.UTF_8));
 
     public String generate(User user) {
@@ -35,6 +34,15 @@ public class JWTTokenUtil {
                 .signWith(secretKey).compact();
 
         return jwt;
+    }
+
+    public Claims getPayload(String jwt) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(jwt)
+                .getBody();
+        return claims;
     }
 
     private String populateAuthorities(Collection<? extends GrantedAuthority> collection) {
