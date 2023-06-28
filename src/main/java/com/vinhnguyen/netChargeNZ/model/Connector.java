@@ -12,9 +12,11 @@ public class Connector {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "connector_number")
     private int connectorNumber;
 
     @ManyToOne
+    @JoinColumn(name = "charge_point_id", nullable = false)
     private ChargePoint chargePoint;
 }
 
