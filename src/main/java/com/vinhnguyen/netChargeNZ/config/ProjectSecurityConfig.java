@@ -3,6 +3,7 @@ package com.vinhnguyen.netChargeNZ.config;
 import com.vinhnguyen.netChargeNZ.filter.JWTTokenValidatorFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,6 +21,7 @@ public class ProjectSecurityConfig {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .addFilterBefore(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class)
             .authorizeHttpRequests()
+            .requestMatchers(HttpMethod.POST, "/api/connectors").hasRole("ADMIN")
             .requestMatchers("/version", "/api/register", "/api/signIn").permitAll()
             .requestMatchers(toH2Console()).permitAll()
             .and().csrf().ignoringRequestMatchers(toH2Console())

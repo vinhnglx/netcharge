@@ -6,9 +6,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LoginRequest {
+public class CreateConnectorRequest {
     @NotNull
-    private String username;
+    private int connector_number;
     @NotNull
-    private String password;
+    private int charge_point_id;
 }
