@@ -1,5 +1,6 @@
 package com.vinhnguyen.netChargeNZ.controller;
 
+import com.vinhnguyen.netChargeNZ.controller.response.VersionResponse;
 import com.vinhnguyen.netChargeNZ.service.VersionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +17,10 @@ public class VersionController {
     private final VersionService versionService;
 
     @GetMapping("/version")
-    public ResponseEntity<Map<String, String>> getVersionInfo() {
-        Map<String, String> versionInfo = new HashMap<>();
-        versionInfo.put("applicationVersion", versionService.getApplicationVersion());
-        versionInfo.put("databaseSchemaVersion", versionService.getDatabaseSchemaVersion());
-        return ResponseEntity.ok(versionInfo);
+    public ResponseEntity<VersionResponse> getVersionInfo() {
+        VersionResponse versionResponse = new VersionResponse();
+        versionResponse.setDatabaseSchemaVersion(versionService.getDatabaseSchemaVersion());
+        versionResponse.setApplicationVersion(versionService.getApplicationVersion());
+        return ResponseEntity.ok(versionResponse);
     }
 }
