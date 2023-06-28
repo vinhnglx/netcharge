@@ -2,7 +2,7 @@ package com.vinhnguyen.netChargeNZ.controller;
 
 import com.vinhnguyen.netChargeNZ.constants.SecurityConstants;
 import com.vinhnguyen.netChargeNZ.controller.request.LoginRequest;
-import com.vinhnguyen.netChargeNZ.controller.response.RegisterResponse;
+import com.vinhnguyen.netChargeNZ.controller.response.RegisterDTO;
 import com.vinhnguyen.netChargeNZ.model.User;
 import com.vinhnguyen.netChargeNZ.service.UserService;
 import com.vinhnguyen.netChargeNZ.util.JWTTokenUtil;
@@ -28,9 +28,9 @@ public class AuthController {
     private final JWTTokenUtil jwtTokenUtil;
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterResponse> registerUser(@RequestBody User requestUser) {
+    public ResponseEntity<RegisterDTO> registerUser(@RequestBody User requestUser) {
         User savedUser;
-        RegisterResponse registerResponse = new RegisterResponse();
+        RegisterDTO registerResponse = new RegisterDTO();
         ResponseEntity response = null;
 
         try {
