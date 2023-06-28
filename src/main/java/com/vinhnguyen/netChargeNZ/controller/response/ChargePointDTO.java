@@ -13,4 +13,5 @@ public class ChargePointDTO {
     private int id;
     private String name;
     private String serialNumber;
+    private UserDTO owner;
 }

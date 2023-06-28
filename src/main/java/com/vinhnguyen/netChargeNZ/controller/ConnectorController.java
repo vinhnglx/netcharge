@@ -3,7 +3,7 @@ package com.vinhnguyen.netChargeNZ.controller;
 import com.vinhnguyen.netChargeNZ.controller.request.CreateConnectorRequest;
 import com.vinhnguyen.netChargeNZ.controller.response.ChargePointDTO;
 import com.vinhnguyen.netChargeNZ.controller.response.ConnectorDTO;
-import com.vinhnguyen.netChargeNZ.model.ChargePoint;
+import com.vinhnguyen.netChargeNZ.controller.response.UserDTO;
 import com.vinhnguyen.netChargeNZ.model.Connector;
 import com.vinhnguyen.netChargeNZ.service.ConnectorService;
 import lombok.AllArgsConstructor;
@@ -23,6 +23,12 @@ public class ConnectorController {
         if (connector == null) {
             ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        ConnectorDTO connectorDTO = buildConnectorDTO(connector);
+
+        return ResponseEntity.status(HttpStatus.OK).body(connectorDTO);
+    }
+
+    private ConnectorDTO buildConnectorDTO(Connector connector) {
         ConnectorDTO connectorDTO = new ConnectorDTO();
         connectorDTO.setConnectorNumber(connector.getConnectorNumber());
         connectorDTO.setId(connector.getId());
@@ -31,8 +37,14 @@ public class ConnectorController {
         chargePointDTO.setId(connector.getChargePoint().getId());
         chargePointDTO.setName(connector.getChargePoint().getName());
         chargePointDTO.setSerialNumber(connector.getChargePoint().getSerialNumber());
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(connector.getChargePoint().getOwner().getId());
+        userDTO.setRole(connector.getChargePoint().getOwner().getRole());
+        userDTO.setUsername(connector.getChargePoint().getOwner().getUsername());
+        chargePointDTO.setOwner(userDTO);
         connectorDTO.setChargePoint(chargePointDTO);
 
-        return ResponseEntity.status(HttpStatus.OK).body(connectorDTO);
+        return connectorDTO;
     }
 }
