@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class Connector {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private int connectorNumber;
