@@ -1,7 +1,7 @@
 package com.vinhnguyen.netChargeNZ.controller;
 
 import com.vinhnguyen.netChargeNZ.controller.request.CreateConnectorRequest;
-import com.vinhnguyen.netChargeNZ.controller.response.ChargePointDTO;
+import com.vinhnguyen.netChargeNZ.controller.response.ChargePointDTOLight;
 import com.vinhnguyen.netChargeNZ.controller.response.ConnectorDTO;
 import com.vinhnguyen.netChargeNZ.controller.response.UserDTO;
 import com.vinhnguyen.netChargeNZ.model.Connector;
@@ -33,7 +33,7 @@ public class ConnectorController {
         connectorDTO.setConnectorNumber(connector.getConnectorNumber());
         connectorDTO.setId(connector.getId());
 
-        ChargePointDTO chargePointDTO = new ChargePointDTO();
+        ChargePointDTOLight chargePointDTO = new ChargePointDTOLight();
         chargePointDTO.setId(connector.getChargePoint().getId());
         chargePointDTO.setName(connector.getChargePoint().getName());
         chargePointDTO.setSerialNumber(connector.getChargePoint().getSerialNumber());

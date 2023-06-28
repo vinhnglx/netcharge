@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,4 +16,5 @@ public class ChargePointDTO {
     private String name;
     private String serialNumber;
     private UserDTO owner;
+    private List<ConnectorDTOLight> connectors;
 }

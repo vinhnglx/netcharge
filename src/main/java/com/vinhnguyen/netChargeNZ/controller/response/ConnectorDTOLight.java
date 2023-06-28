@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ConnectorDTO {
+public class ConnectorDTOLight {
     private int id;
     private int connectorNumber;
-    private ChargePointDTOLight chargePoint;
 }

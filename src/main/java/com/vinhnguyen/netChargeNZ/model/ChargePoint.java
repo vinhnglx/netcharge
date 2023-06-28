@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -23,4 +25,8 @@ public class ChargePoint {
     @ManyToOne
     @JoinColumn(nullable = false, name = "owner_id")
     private User owner;
+
+    @OneToMany(mappedBy = "chargePoint", cascade = CascadeType.ALL)
+    private List<Connector> connectors;
+
 }
