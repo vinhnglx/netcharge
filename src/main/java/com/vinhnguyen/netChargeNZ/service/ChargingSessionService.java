@@ -38,6 +38,22 @@ public class ChargingSessionService {
                         connector.getId(), vehicle.getId());
     }
 
+    public ChargingSession getChargingSessionById(int sessionId) {
+        return chargingSessionRepository.findById(sessionId).orElseThrow(
+                () -> new IllegalArgumentException("ChargingSession not found")
+        );
+    }
+
+    public ChargingSession endChargingSession(ChargingSession chargingSession, double endMeterValue, String errorMessage) {
+        LocalDateTime endTime = LocalDateTime.now();
+
+        chargingSession.setEndTime(endTime);
+        chargingSession.setEndMeterValue(endMeterValue);
+        chargingSession.setErrorMessage(errorMessage);
+
+        return chargingSessionRepository.save(chargingSession);
+    }
+
     public Connector getConnectorById(int connectorId) {
         return connectorRepository.findById(connectorId).orElseThrow(
                 () -> new IllegalArgumentException("Connector not found")

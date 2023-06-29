@@ -31,6 +31,7 @@ public class ProjectSecurityConfig {
             .requestMatchers(HttpMethod.POST, "/api/connectors").hasRole("ADMIN")
             .requestMatchers(HttpMethod.GET, "/api/chargePoints").hasRole("CUSTOMER")
             .requestMatchers(HttpMethod.POST, "/api/chargingSessions").hasRole("CUSTOMER")
+            .requestMatchers(HttpMethod.PUT, "/api/chargingSessions/{sessionId}/end").hasRole("CUSTOMER")
             .requestMatchers("/version", "/api/register", "/api/signIn").permitAll()
             .requestMatchers(toH2Console()).permitAll()
             .and().csrf().ignoringRequestMatchers(toH2Console())
