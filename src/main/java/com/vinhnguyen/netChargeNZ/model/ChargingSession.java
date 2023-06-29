@@ -2,10 +2,7 @@ package com.vinhnguyen.netChargeNZ.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class ChargingSession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +21,6 @@ public class ChargingSession {
     @Column(name = "start_time")
     private LocalDateTime startTime;
 
-    @NotNull
     @Column(name = "end_time")
     private LocalDateTime endTime;
 
@@ -31,9 +28,11 @@ public class ChargingSession {
     @Column(name = "start_meter_value")
     private double startMeterValue;
 
-    @NotNull
     @Column(name = "end_meter_value")
     private double endMeterValue;
+
+    @Column(name = "error_message")
+    private String errorMessage;
 
     @ManyToOne
     @JoinColumn(name = "connector_id", nullable = false)

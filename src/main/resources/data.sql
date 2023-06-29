@@ -46,13 +46,16 @@ CREATE TABLE IF NOT EXISTS Vehicle (
 );
 
 CREATE TABLE IF NOT EXISTS Charging_Session (
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     start_time TIMESTAMP NOT NULL,
     end_time TIMESTAMP,
-    user_id INT,
-    charge_point_id INT,
-    FOREIGN KEY (user_id) REFERENCES _User(id) ON DELETE CASCADE,
-    FOREIGN KEY (charge_point_id) REFERENCES Charge_Point(id) ON DELETE CASCADE
+    connector_id INT,
+    start_meter_value DECIMAL(10, 2) NOT NULL,
+    end_meter_value DECIMAL(10, 2),
+    vehicle_id INT,
+    error_message VARCHAR(255),
+    FOREIGN KEY (connector_id) REFERENCES Connector(id) ON DELETE CASCADE,
+    FOREIGN KEY (vehicle_id) REFERENCES Vehicle(id) ON DELETE CASCADE
 );
 
 -- Insert test data
