@@ -18,8 +18,8 @@ public class ConnectorService {
 
     public Connector createConnect(CreateConnectorRequest connectorRequest) {
         Connector newConnector = new Connector();
-        newConnector.setConnectorNumber(connectorRequest.getConnector_number());
-        Optional<ChargePoint> chargePointOptional = chargePointRepository.findById(connectorRequest.getCharge_point_id());
+        newConnector.setConnectorNumber(connectorRequest.getConnectorNumber());
+        Optional<ChargePoint> chargePointOptional = chargePointRepository.findById(connectorRequest.getChargePointId());
 
         if (chargePointOptional.isPresent()) {
             ChargePoint chargePoint = chargePointOptional.get();

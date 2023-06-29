@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class CreateConnectorRequest {
     @NotNull
-    private int connector_number;
+    private int connectorNumber;
     @NotNull
-    private int charge_point_id;
+    private int chargePointId;
 }
