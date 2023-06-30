@@ -40,8 +40,8 @@ public class DateConverter {
             } else if (parsed instanceof LocalDate localDate) {
                 return localDate.atStartOfDay();
             }
-            throw new IllegalArgumentException();
-        } catch (IllegalArgumentException e) {
+            throw new Exception();
+        } catch (Exception e) {
             throw new IllegalArgumentException("Unsupported or invalid date/time format: " + datetime);
         }
     }
