@@ -10,6 +10,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @AllArgsConstructor
@@ -52,6 +55,25 @@ public class ChargingSessionService {
         chargingSession.setErrorMessage(errorMessage);
 
         return chargingSessionRepository.save(chargingSession);
+    }
+
+    public List<ChargingSession> getChargingSessionsByDateRange(LocalDateTime startTime, LocalDateTime endTime) {
+        return chargingSessionRepository.findByStartTimeBetween(startTime, endTime);
+    }
+
+    public List<ChargingSession> getChargingSessionsFromDate(LocalDateTime startTime) {
+        return chargingSessionRepository.findByStartTimeAfter(startTime);
+    }
+
+    public List<ChargingSession> getChargingSessionsUntilDate(LocalDateTime endTime) {
+        return chargingSessionRepository.findByStartTimeBefore(endTime);
+    }
+
+    public List<ChargingSession> getAllChargingSession() {
+        Iterable<ChargingSession> iterable = chargingSessionRepository.findAll();
+        List<ChargingSession> chargingSessions = StreamSupport.stream(iterable.spliterator(), false)
+                .collect(Collectors.toList());
+        return chargingSessions;
     }
 
     public Connector getConnectorById(int connectorId) {

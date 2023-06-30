@@ -8,6 +8,9 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Repository
 public interface ChargingSessionRepository extends CrudRepository<ChargingSession, Integer> {
     @Query("SELECT CASE WHEN COUNT(cs) > 0 THEN TRUE ELSE FALSE END " +
@@ -18,4 +21,10 @@ public interface ChargingSessionRepository extends CrudRepository<ChargingSessio
     boolean existsByConnectorAndVehicleAndEndTimeIsNull(
             @Param("connectorId") int connectorId,
             @Param("vehicleId") int vehicleId);
+
+    List<ChargingSession> findByStartTimeBetween(LocalDateTime startTime, LocalDateTime endTime);
+
+    List<ChargingSession> findByStartTimeAfter(LocalDateTime starTime);
+
+    List<ChargingSession> findByStartTimeBefore(LocalDateTime endTime);
 }
