@@ -61,9 +61,9 @@ CREATE TABLE IF NOT EXISTS Charging_Session (
 -- Insert test data
 INSERT INTO _User (username, password, role)
 VALUES
-    ( 'customer1', '$2a$10$YJdQrtDRonN9zJfWj05lxO9eV1vZIkA2.sM0CP9BMjpvWw2eE9hvi', 'ROLE_CUSTOMER' ),
-    ( 'customer2', '$2a$10$YJdQrtDRonN9zJfWj05lxO9eV1vZIkA2.sM0CP9BMjpvWw2eE9hvi', 'ROLE_CUSTOMER' ),
-    ( 'admin1', '$2a$10$Uk.gTErNTBQUUwtHI1T5de28TlEz5zRAetPSwJE8a0mcKfYNtdstG', 'ROLE_ADMIN' );
+    ( 'customer1', '$2a$10$YJdQrtDRonN9zJfWj05lxO9eV1vZIkA2.sM0CP9BMjpvWw2eE9hvi', 'CUSTOMER' ),
+    ( 'customer2', '$2a$10$YJdQrtDRonN9zJfWj05lxO9eV1vZIkA2.sM0CP9BMjpvWw2eE9hvi', 'CUSTOMER' ),
+    ( 'admin1', '$2a$10$Uk.gTErNTBQUUwtHI1T5de28TlEz5zRAetPSwJE8a0mcKfYNtdstG', 'ADMIN' );
 
 INSERT INTO Charge_Point (name, serial_number, owner_id)
 VALUES

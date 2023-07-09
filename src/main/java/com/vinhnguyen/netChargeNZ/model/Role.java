@@ -1,6 +1,6 @@
 package com.vinhnguyen.netChargeNZ.model;
 
 public enum Role {
-    ROLE_ADMIN,
-    ROLE_CUSTOMER;
+    ADMIN,
+    CUSTOMER;
 }
